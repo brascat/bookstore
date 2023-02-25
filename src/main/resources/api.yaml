@@ -20,4 +20,4 @@ paths:
             application/json:
               schema:
                 type: string
-  
+
