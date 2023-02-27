@@ -1,12 +1,30 @@
 openapi: 3.0.3
 info:
-  title: Title
-  description: Title
+  title: Bookstore
+  description: The best store to find your favorite books!
   version: 1.0.0
 servers:
-  - url: 'https'
+  - url: 'http://localhost:8080'
 paths:
   /books:
+    get:
+      responses:
+        200:
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: string
+    post:
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+
+  /book:
     get:
       parameters:
         - name: isbn
@@ -19,5 +37,35 @@ paths:
           content:
             application/json:
               schema:
+                $ref: '#/components/schemas/Book'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
                 type: string
 
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        isbn:
+          type: integer
+          format: int64
+        title:
+          type: string
+        author:
+          type: string
+        type:
+          type: string
+          enum:
+            - HORROR
+            - ROMANCE
+            - DRAMA
+            - FICTION
+            - TECHNICAL
+        published:
+          type: date
+      required:
+        - isbn
