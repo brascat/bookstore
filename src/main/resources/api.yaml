@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: Bookstore
+  description: The best store to find your favorite books!
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+tags:
+  - name: books
+    description: Books API
+paths:
+  /books:
+    get:
+      description: Lists all books
+      operationId: listBooks
+      tags:
+        - books
+      responses:
+        200:
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+
+  /book:
+    get:
+      description: Retrieves a book by its isbn
+      tags:
+        - books
+      operationId: getBook
+      parameters:
+        - name: isbn
+          in: path
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+    post:
+      description: Registers a new book
+      tags:
+        - books
+      operationId: registerBook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+    delete:
+      description: Deletes a book
+      tags:
+        - books
+      operationId: deleteBook
+      parameters:
+        - in: path
+          name: isbn
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Accepted
+        404:
+          description: Not Found
+
+
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        isbn:
+          type: string
+          format: uuid
+        title:
+          type: string
+        author:
+          type: string
+        type:
+          type: string
+          enum:
+            - HORROR
+            - ROMANCE
+            - DRAMA
+            - FICTION
+            - TECHNICAL
+        published:
+          type: date
+      required:
+        - isbn
