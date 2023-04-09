@@ -70,6 +70,7 @@
                             <inputSpec>${project.basedir}/src/main/resources/api.yaml</inputSpec>
                             <generatorName>spring</generatorName>
                             <apiPackage>com.bookstore.demo</apiPackage>
+                            <templateDirectory>${project.basedir}/src/main/resources/templates</templateDirectory>
                             <configOptions>
                                 <sourceFolder>src/gen/java/main</sourceFolder>
                                 <useSpringBoot3>true</useSpringBoot3>
