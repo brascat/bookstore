@@ -1,17 +1,21 @@
-# OpenAPI Generator Server Stub Demo
-Bookstore API client generator demo
+# OpenAPI Generator Spring Server Stub Tutorial
+This project sets up a Spring server stub with the OpenAPI Generator. Different branches represent different steps.
 
+### **Stack**
+* Java 17
+* Spring Boot 3.0.2
+* OpenAPI Generator Maven Plugin 6.5.0
 
-### Set up the generator
+## Set up the generator
 
-#### Configure the plugin
+### Configure the plugin
 Go to [link](https://openapi-generator.tech/docs/plugins/) and copy or copy the snippet below to plugins section of the `pom.xml`:
 ```
     <plugin>
         <groupId>org.openapitools</groupId>
         <artifactId>openapi-generator-maven-plugin</artifactId>
         <!-- RELEASE_VERSION -->
-        <version>6.3.0</version>
+        <version>6.5.0</version>
         <!-- /RELEASE_VERSION -->
         <executions>
             <execution>
@@ -21,9 +25,12 @@ Go to [link](https://openapi-generator.tech/docs/plugins/) and copy or copy the 
                 <configuration>
                     <inputSpec>${project.basedir}/src/main/resources/api.yaml</inputSpec>
                     <generatorName>spring</generatorName>
+                    <apiPackage>com.bookstore.demo</apiPackage>
                     <configOptions>
                         <sourceFolder>src/gen/java/main</sourceFolder>
+                        <useSpringBoot3>true</useSpringBoot3>
                         <useTags>true</useTags>
+                        <delegatePattern>true</delegatePattern>
                     </configOptions>
                 </configuration>
             </execution>
@@ -31,31 +38,19 @@ Go to [link](https://openapi-generator.tech/docs/plugins/) and copy or copy the 
     </plugin>
 ```
 
-#### Add missing dependencies
-The dependencies missing may vary according to the framework and configurations.
+### Add missing dependencies
+The dependencies missing may vary according to the framework and configurations. The ones below are specific to this project:
 ```
 <dependency>
-    <groupId>javax.annotation</groupId>
-    <artifactId>javax.annotation-api</artifactId>
-    <version>1.3.1</version>
+    <groupId>io.swagger.parser.v3</groupId>
+    <artifactId>swagger-parser</artifactId>
+    <version>2.1.12</version>
 </dependency>
 
 <dependency>
     <groupId>org.openapitools</groupId>
     <artifactId>jackson-databind-nullable</artifactId>
     <version>0.2.6</version>
-</dependency>
-
-<dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>javax.servlet-api</artifactId>
-    <version>4.0.1</version>
-</dependency>
-
-<dependency>
-    <groupId>io.swagger.parser.v3</groupId>
-    <artifactId>swagger-parser</artifactId>
-    <version>2.1.12</version>
 </dependency>
 
 <dependency>
@@ -71,16 +66,16 @@ The dependencies missing may vary according to the framework and configurations.
 </dependency>
 ```
 
-#### Run the generator
+### Run the generator
 To run the generator, try the following command and check the `target` folder:
 ```
 mvn compile
 ```
 
-
 ## Templating
 
-https://openapi-generator.tech/docs/templating
+* [OpenAPI Generator Templating docs](https://openapi-generator.tech/docs/templating)
+* [Mustache Templates Repository](https://github.com/openapitools/openapi-generator/tree/master/modules/openapi-generator/src/main/resources)
 
 ## More resources
 
